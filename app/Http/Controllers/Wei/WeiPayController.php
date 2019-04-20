@@ -168,7 +168,7 @@ class WeiPayController extends Controller
                 //TODO 逻辑处理  订单状态更新
                 //更新数据库 xml->cash_fee物品最后交易成功的价格 
                 $pay_time = strtotime($xml->time_end);
-                OrderModel::where(['order_sn'=>$xml->out_trade_no])->update(['order_amount'=>$xml->cash_fee,'pay_time'=>$pay_time]);
+                OrderModel::where(['order_sn'=>$xml->out_trade_no])->update(['order_amount'=>$xml->cash_fee,'pay_time'=>$pay_time,'is_status'=>1]);
 
             }else{
                 //TODO 验签失败
