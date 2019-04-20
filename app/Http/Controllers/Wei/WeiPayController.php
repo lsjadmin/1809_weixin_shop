@@ -166,6 +166,10 @@ class WeiPayController extends Controller
             $sign = true;
             if($sign){       //签名验证成功
                 //TODO 逻辑处理  订单状态更新
+                //更新数据库 xml->cash_fee物品最后交易成功的价格 
+                $pay_time=strtotime($xml->time_end); //交易成功时间
+                $res=OrderModel::where(['order_sn'=>$xml->out_trade_no])->update(['pay_time'=>$pay_time,'order_amount'=>$xml->cash_end]);
+
             }else{
                 //TODO 验签失败
                 echo '验签失败，IP: '.$_SERVER['REMOTE_ADDR'];
