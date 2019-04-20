@@ -75,9 +75,9 @@ class OrderController extends Controller
     public function status(){
         $o_id = intval($_GET['o_id']);    // 订单id
        // echo $o_id;
-        $pay_time=time();
+       // $pay_time=time();
         //修改pay_time
-        $res=OrderModel::where(['o_id'=>$o_id])->update(['pay_time'=>$pay_time,'is_status'=>1]);
+        //$res=OrderModel::where(['o_id'=>$o_id])->update(['pay_time'=>$pay_time,'is_status'=>1]);
         $orderInfo=OrderModel::where(['o_id'=>$o_id])->first();
         $respon=[];
         if($orderInfo){
