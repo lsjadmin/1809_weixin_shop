@@ -40,7 +40,7 @@ class JssdkController extends Controller
         $token=accessToken();
         $urla="https://api.weixin.qq.com/cgi-bin/media/get?access_token=$token&media_id=$MediaId";
         $voice_str=file_get_contents($urla);
-        $file_name=time().mt_rand(11111,99999).'png';
+        $file_name=time().mt_rand(11111,99999).'.png';
         file_put_contents("/wwwroot/1809_weixin_shop/public/wx_image/$file_name",$voice_str,FILE_APPEND);
 
 
