@@ -36,4 +36,7 @@ Route::get('text','Wei\WeiPayController@text');
 Route::post('notify','Wei\WeiPayController@notify');
 Route::get('success','Wei\WeiPayController@success');
 
+//jssdk
+Route::get('jssdk','Wei\JssdkController@Jssdktest');
+
 
