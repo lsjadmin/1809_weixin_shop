@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Wei;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Uri;
 class JssdkController extends Controller
 {
     //
@@ -31,6 +33,15 @@ class JssdkController extends Controller
           return view('wei.Jssdktest',$data);   
     }
     public function getimg(){
-        echo'<pre>';print_r($_GET);echo'</pre>';
+        //echo'<pre>';print_r($_GET);echo'</pre>';
+        $a=$_GET;
+        $MediaId=rtrim($a,',');
+        $token=accessToken();
+        $urla="https://api.weixin.qq.com/cgi-bin/media/get?access_token=$token&media_id=$MediaId";
+        $voice_str=file_get_contents($urla);
+        $file_name=time().mt_rand(11111,99999);
+        file_put_contents("/wwwroot/1809_weixin_shop/public/wx_image/$file_name",$voice_str,FILE_APPEND);
+
+
     }
 }
