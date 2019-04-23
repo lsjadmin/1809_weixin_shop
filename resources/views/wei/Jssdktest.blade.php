@@ -35,7 +35,7 @@
                         success: function (res) {
                         var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
                             var img='';
-                            $.each(localId,function(i,v){
+                            $.each(localIds,function(i,v){
                                 img +=v+',';
                                 var node="#imgs"+i;
                                 $(node).attr('src',v);
