@@ -30,4 +30,7 @@ class JssdkController extends Controller
         //dd($data);
           return view('wei.Jssdktest',$data);   
     }
+    public function getimg(){
+        echo'<pre>';print_r($_GET);echo'</pre>';
+    }
 }

@@ -38,5 +38,6 @@ Route::get('success','Wei\WeiPayController@success');
 
 //jssdk
 Route::get('jssdk','Wei\JssdkController@Jssdktest');
+Route::get('getimg','Wei\JssdkController@getimg');
 
 
