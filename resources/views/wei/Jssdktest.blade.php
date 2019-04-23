@@ -39,9 +39,6 @@
                                 img +=v+',';
                                 var node="#imgs"+i;
                                 $(node).attr('src',v);
-                                console.log(i);
-                                console.log(v);
-                                console.log(node);
                                 wx.uploadImage({
                                     localId: v, // 需要上传的图片的本地ID，由chooseImage接口获得
                                     isShowProgressTips: 1, // 默认为1，显示进度提示
@@ -51,6 +48,14 @@
                                 });
 
                             })
+                                $.ajax({
+                                url : '/getimg?img='+img,     //将上传的照片id发送给后端
+                                type: 'get',
+                                success:function(msg){
+                                    console.log(msg);
+                                }
+                            });
+                            console.log(img);
                         }
                     });
                })
