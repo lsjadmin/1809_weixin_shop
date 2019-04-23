@@ -22,6 +22,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 //购物车
 Route::get('/catr', 'CartController@index');
 Route::get('/add/{goods_id?}', 'CartController@add');
+Route::get('/detail/{goods_id?}', 'CartController@detail'); //商品详情
+Route::get('/sort', 'CartController@sort'); //商品排序
 //订单
 Route::get('/order/create', 'Order\OrderController@create');
 Route::get('/order/list', 'Order\OrderController@list');

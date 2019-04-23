@@ -7,24 +7,25 @@ use Illuminate\Support\Facades\Session;
 use App\Model\GoodsModel;
 use App\Model\CartModel;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
 class CartController extends Controller
 {
     //购物车页面
     public function index(){
         // echo "11";
+       
         $wherea=[
             'u_id'=>Auth::id(),
             'session_id'=>Session::getId(),
         ];
         $res=CartModel::where($wherea)->get();
-       // dd($res);
+        //    print_r($res);die;
        if($res){
            $arr=$res->toArray();
          //  dd($arr);
             $goods_price=0;
             foreach($arr as $k=>$v){
                 $goods_price+=$v['goods_price'];
-               
             }
             $data=[
                 'res'=>$res,
@@ -35,7 +36,42 @@ class CartController extends Controller
         header('Refresh:3;url=/');
         die("购物车为空,将在3秒后跳转首页");
        }
-    }
+        }
+    //商品详情
+    public function detail($goods_id=0){
+         $goods_id=intval($goods_id);
+            if(empty($goods_id)){
+                header('Refresh:3;url=/');
+                die("请选择商品,将在3秒后跳转首页");
+            } 
+            $res=GoodsModel::where(['g_id'=>$goods_id])->first();
+            $goods_view_goods_id='goods_view_goods_id:'.$goods_id; //浏览次数的建
+            $ss_sort_goods='ss_sort:goods';  //商品排序的建
+            $count=Redis::incr($goods_view_goods_id); 
+            $sort=Redis::Zadd($ss_sort_goods,$count,$goods_id); //有序集合排序 
+            // dd($sort);
+            // dd($count);
+            // dd($res);
+            //    if($res){
+            //         $res=[
+            //             'count'=>$res->count+1
+            //         ];
+            //         $arr=GoodsModel::where(['g_id'=>$goods_id])->update($res);
+            //         $res=GoodsModel::where(['g_id'=>$goods_id])->first();
+            //         $data=[
+            //             'res'=>$res
+            //         ];
+            //         return view('cart.detail',$data);
+            //    }else{
+            $res=GoodsModel::where(['g_id'=>$goods_id])->first();
+                $data=[
+                    'res'=>$res,
+                    'count'=>$count
+                ];
+                return view('cart.detail',$data);
+         //}
+          
+     }
     //添加到购物车
     public function add($goods_id=0){
        // echo $goods_id;
@@ -48,13 +84,12 @@ class CartController extends Controller
            'g_id'=>$goods_id
        ];
        $goods=GoodsModel::where($where)->first();
-        //dd($goods);
+       // dd($goods);
         if($goods){
             if($goods->is_del==1){
                 header('Refresh:3;url=/');
                 die("请选择商品,将在3秒后跳转首页");
             }
-
              //添加倒购物车
             $cart_info=[
                 'goods_id'=>$goods_id,
@@ -80,5 +115,16 @@ class CartController extends Controller
        
        
 
+    }
+    //商品排序(浏览历史)
+    public function sort(){
+        $key='ss_sort:goods';
+        // $list1=Redis::zRangeByScore($key,0,10000,['withscores'=>true]); //正序
+        $list1=Redis::zRevRange($key,0,10000,true);  //倒叙
+         // print_r($list2);
+        foreach($list1 as $k=>$v){
+            $res[]=GoodsModel::where(['g_id'=>$k])->first();
+        }
+        return view('cart.sort',['res'=>$res]);
     }
 }
