@@ -34,7 +34,8 @@ class JssdkController extends Controller
     }
     public function getimg(){
         //echo'<pre>';print_r($_GET);echo'</pre>';
-        $a=$_GET;
+        $b=$_GET;
+        $a=json_encode($b);
         $MediaId=rtrim($a,',');
         $token=accessToken();
         $urla="https://api.weixin.qq.com/cgi-bin/media/get?access_token=$token&media_id=$MediaId";
