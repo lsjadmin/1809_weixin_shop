@@ -57,6 +57,7 @@
                             });
                            console.log(img);
                            console.log(localIds);
+                           console.log(node);
                         }
                     });
                })
