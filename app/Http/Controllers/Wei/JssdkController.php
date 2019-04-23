@@ -37,6 +37,10 @@ class JssdkController extends Controller
         $b=$_GET;
         $a=json_encode($b);
         $MediaId=rtrim($a,',');
+        echo $MediaId;
+        echo $a;
+        echo'<pre>';print_r($b);echo'</pre>';
+        die;
         $token=accessToken();
         $urla="https://api.weixin.qq.com/cgi-bin/media/get?access_token=$token&media_id=$MediaId";
         $voice_str=file_get_contents($urla);
