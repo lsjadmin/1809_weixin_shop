@@ -52,7 +52,7 @@ class JssdkController extends Controller
         //通过code换取网页授权access_token
         $url='https://api.weixin.qq.com/sns/oauth2/access_token?appid='.env('WX_APPID').'&secret='.env('WX_APPSECRET').'&code='.$code.'&grant_type=authorization_code';
         $response=json_decode(file_get_contents($url),true);
-        echo'<pre>';print_r($response);echo'</pre>';
+        echo'<pre>';print_r($response);echo'</pre>'; die;
 
         $access_token=$response['access_token'];
         $openid=$response['openid'];
@@ -68,7 +68,7 @@ class JssdkController extends Controller
                 'province'=>$res['province'],
                 'country'=>$res['country'],
             ];
-            $arr=MessageModel::insertGetId($info);
+            $arr=MessageModel::insert($info);
      
        
         
