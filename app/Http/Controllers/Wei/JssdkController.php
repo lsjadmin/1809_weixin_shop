@@ -60,7 +60,7 @@ class JssdkController extends Controller
         $urla='https://api.weixin.qq.com/sns/userinfo?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
         $res=json_decode(file_get_contents($urla),true);
         echo'<pre>';print_r($res);echo'</pre>';
-        if(empty($res)){
+       
             $info=[
                 'openid'=>$res['openid'],
                 'nickname'=>$res['nickname'],
@@ -69,7 +69,7 @@ class JssdkController extends Controller
                 'country'=>$res['country'],
             ];
             $arr=MessageModel::insertGetId($info);
-        }
+     
        
         
     }
