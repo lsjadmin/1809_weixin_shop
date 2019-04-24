@@ -60,14 +60,17 @@ class JssdkController extends Controller
         $urla='https://api.weixin.qq.com/sns/userinfo?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
         $res=json_decode(file_get_contents($urla),true);
         echo'<pre>';print_r($res);echo'</pre>';
-        // $info=[
-        //     'openid'=>$res['openid'],
-        //     'nickname'=>$res['nickname'],
-        //     'city'=>$res['city'],
-        //     'province'=>$res['province'],
-        //     'country'=>$res['country'],
-        // ];
-        // $res=MessageModel::insert($info);
+        if(empty($res)){
+            $info=[
+                'openid'=>$res['openid'],
+                'nickname'=>$res['nickname'],
+                'city'=>$res['city'],
+                'province'=>$res['province'],
+                'country'=>$res['country'],
+            ];
+            $arr=MessageModel::insertGetId($info);
+        }
+       
         
     }
 }
