@@ -62,10 +62,10 @@ class JssdkController extends Controller
         //echo'<pre>';print_r($res);echo'</pre>';die;
         
         $name=MessageModel::where(['openid'=>$res['openid']])->first();
-            if($name->nickname==$res['nickname']){
-                echo "欢迎回来";
+            if($name){
+                echo "欢迎回来".$res['nickname'];
             }else{
-                echo '欢迎您'.$res['nickname'];
+               
                 $info=[
                     'openid'=>$res['openid'],
                     'nickname'=>$res['nickname'],
@@ -74,6 +74,11 @@ class JssdkController extends Controller
                     'country'=>$res['country'],
                 ];
                 $arr=MessageModel::insert($info);
+                if($arr){
+                    echo "欢迎".$res['nickname'];
+                }else{
+                    echo "授权失败";
+                }
             }
             
     }
