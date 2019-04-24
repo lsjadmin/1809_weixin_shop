@@ -69,8 +69,5 @@ class JssdkController extends Controller
                 'country'=>$res['country'],
             ];
             $arr=MessageModel::insert($info);
-     
-       
-        
     }
 }
