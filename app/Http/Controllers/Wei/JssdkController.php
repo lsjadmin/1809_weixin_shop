@@ -62,7 +62,7 @@ class JssdkController extends Controller
         //echo'<pre>';print_r($res);echo'</pre>';die;
         
         $name=MessageModel::where(['openid'=>$res['openid']])->first();
-            if($name==$res['nickname']){
+            if($name->nickname==$res['nickname']){
                 echo "欢迎回来";
             }else{
                 echo '欢迎您'.$res['nickname'];
