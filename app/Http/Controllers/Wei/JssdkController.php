@@ -21,7 +21,7 @@ class JssdkController extends Controller
         $string1 = "jsapi_ticket=$ticket&noncestr=$nonceStr&timestamp=$timestamp&url=$current_url";
         $sign= sha1($string1);
         $jsconfig=[
-            'appId'=>env('WX_APPID'),    //公众号的唯一标识
+            'appId'=>env('WX_APPID'),   //公众号的唯一标识
             'timestamp'=>$timestamp,   //生成签名的时间戳
             'nonceStr'=> $nonceStr,     //生成签名的随机串
             'signature'=> $sign,   //签名
@@ -40,10 +40,12 @@ class JssdkController extends Controller
         $MediaId="987654321123456789";
         $token=accessToken();
         $urla="https://api.weixin.qq.com/cgi-bin/media/get?access_token=$token&media_id=$MediaId";
+        var_dump($urla);die;
         $voice_str=file_get_contents($urla);
         $file_name=time().mt_rand(11111,99999).'.png';
         file_put_contents("/wwwroot/1809_weixin_shop/public/wx_image/$file_name",$voice_str,FILE_APPEND);
-
-
+    }
+    public function scope(){
+        echo'<pre>';print_r($_GET);echo'</pre>';
     }
 }

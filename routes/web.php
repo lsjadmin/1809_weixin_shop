@@ -39,5 +39,8 @@ Route::get('success','Wei\WeiPayController@success');
 //jssdk
 Route::get('jssdk','Wei\JssdkController@Jssdktest');
 Route::get('getimg','Wei\JssdkController@getimg');
+Route::get('scope','Wei\JssdkController@scope'); //
+//定时任务
+Route::get('del','Goods\GoodsController@del');
 
 
