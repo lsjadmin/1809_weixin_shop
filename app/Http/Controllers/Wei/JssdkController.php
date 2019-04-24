@@ -47,7 +47,7 @@ class JssdkController extends Controller
         file_put_contents("/wwwroot/1809_weixin_shop/public/wx_image/$file_name",$voice_str,FILE_APPEND);
     }
     public function scope(){
-        echo'<pre>';print_r($_GET);echo'</pre>';die;
+       // echo'<pre>';print_r($_GET);echo'</pre>';die;
         $code=$_GET['code'];
         //通过code换取网页授权access_token
         $url='https://api.weixin.qq.com/sns/oauth2/access_token?appid='.env('WX_APPID').'&secret='.env('WX_APPSECRET').'&code='.$code.'&grant_type=authorization_code';
