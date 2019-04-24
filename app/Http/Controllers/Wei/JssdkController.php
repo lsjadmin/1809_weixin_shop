@@ -46,6 +46,16 @@ class JssdkController extends Controller
         file_put_contents("/wwwroot/1809_weixin_shop/public/wx_image/$file_name",$voice_str,FILE_APPEND);
     }
     public function scope(){
-        echo'<pre>';print_r($_GET);echo'</pre>';
+       // echo'<pre>';print_r($_GET);echo'</pre>';
+        $code=$_GET['code'];
+        //通过code换取网页授权access_token
+        $url='https://api.weixin.qq.com/sns/oauth2/access_token?appid='.env('WX_APPID').'&secret='.env('WX_APPSECRET').'&code='.$code.'&grant_type=authorization_code';
+        $response=json_decode(file_get_content($url),true);
+        $access_token=$response['access_token'];
+        $openid=$response['openid'];
+        //拉取用户信息
+        $urla='https://api.weixin.qq.com/sns/userinfo?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
+        $res=json_decode(file_get_content($urla),true);
+        echo'<pre>';print_r($re);echo'</pre>';
     }
 }
