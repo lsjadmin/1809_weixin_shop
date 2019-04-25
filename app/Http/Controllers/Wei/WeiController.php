@@ -27,16 +27,17 @@ class WeiController extends Controller
        // echo 'SUCCESS';
         $data = simplexml_load_string($content);
        // var_dump($data);
-       // echo 'ToUserName:'.$data->ToUserName;echo"</br>";//微信号id
-       //echo 'FromUserName:'.$data->FromUserName;echo"</br>";//用户openid
-      // echo 'CreateTime:'.$data->CreateTime;echo"</br>";//时间
-       //echo 'Event:'.$data->Event;echo"</br>";//事件类型
+    //    echo 'ToUserName:'.$data->ToUserName;echo"</br>";//微信号id
+    //    echo 'FromUserName:'.$data->FromUserName;echo"</br>";//用户openid
+    //   echo 'CreateTime:'.$data->CreateTime;echo"</br>";//时间
+    //    echo 'Event:'.$data->Event;echo"</br>";//事件类型
+       //die;
         $MsgType=$data->MsgType;
         $openid=$data->FromUserName;
         $wx_id=$data->ToUserName;
         $event=$data->Event;
         $MediaId=$data->MediaId;
-        $token=$this->success_toke();
+        $token=accessToken();
         //把文本存到数据库 ,图片，语音存到数据库
         if($MsgType=='text'){
             $m_text=$data->Content;
