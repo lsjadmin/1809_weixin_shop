@@ -38,6 +38,7 @@ class WeiController extends Controller
         $event=$data->Event;
         $MediaId=$data->MediaId;
         $token=accessToken();
+       
         //把文本存到数据库 ,图片，语音存到数据库
         if($MsgType=='text'){
             $m_text=$data->Content;
@@ -57,6 +58,10 @@ class WeiController extends Controller
             //echo $Content;
         }
         if($event=='subscribe'){
+
+            $whereOpenid=[
+                'openid'=>$openid
+            ];
             $userName=DB::table('userwx')->where($whereOpenid)->first();
             if($userName){
                     echo '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName>
