@@ -4,10 +4,10 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MessageModel extends Model
+class UserwxModel extends Model
 {
     //
-    protected $table="message";
+    protected $table="userwx";
     public $timestamps = false;
-    protected $primaryKey="u_id";
+    protected $primaryKey="user_id";
 }

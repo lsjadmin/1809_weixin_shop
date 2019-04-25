@@ -9,4 +9,5 @@ class GoodsModel extends Model
     //
     protected $table="goods";
     public $timestamps = false;
+    protected $primaryKey="g_id";
 }
