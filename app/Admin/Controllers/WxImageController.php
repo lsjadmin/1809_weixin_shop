@@ -196,9 +196,14 @@ class WxImageController extends Controller
     public function sendTo(){
         $text=request()->input('text');
         $openid=request()->input('openid');
-        //  echo $openid;
-        // echo $text;
+         echo $openid;
+        echo $text;
         $res=$this->sendMse($openid,$text);
+        if($res){
+                echo "ok";
+        }else{
+            echo "no";
+        }
     }
     //添加文件
     public function upload(Request $request,$fieldname){
