@@ -196,8 +196,8 @@ class WxImageController extends Controller
     public function sendTo(){
         $count=request()->input('text');
         $openid=request()->input('openid');
-         echo $openid;
-        echo $text;
+         //echo $openid;
+       // echo $count;
         $res=$this->sendMse($openid,$count);
         if($res){
                 echo "ok";
