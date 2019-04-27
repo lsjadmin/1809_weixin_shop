@@ -195,8 +195,9 @@ class WxImageController extends Controller
     //群发
     public function sendTo(){
         $count=request()->input('text');
-        $openid=request()->input('openid');
-         echo $openid;
+        $id=request()->input('openid');
+        $openid=explode(',',$id);
+        print_r($openid);
         echo $count;
        $access_token=accessToken();
        $msg=[

@@ -141,7 +141,7 @@
            // console.log(check);
             var openid='';
             check.each(function(index){
-                if(check.prop("checked")==true){
+                if($(this).prop("checked")==true){
                       openid+=$(this).attr("openid")+',';  
                  }
             })
