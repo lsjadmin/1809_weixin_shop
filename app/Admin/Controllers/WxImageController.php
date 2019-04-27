@@ -212,7 +212,9 @@ class WxImageController extends Controller
        $response=$client->request('post',$url,[
            'body'=>$data
        ]);
-       $response->getBody();
+       $res=$response->getBody();
+       $arr=json_decode($res,true);
+       echo'<pre>';print_r($arr);echo'</pre>';
     }
     //添加文件
     public function upload(Request $request,$fieldname){
