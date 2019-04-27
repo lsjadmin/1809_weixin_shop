@@ -196,14 +196,23 @@ class WxImageController extends Controller
     public function sendTo(){
         $count=request()->input('text');
         $openid=request()->input('openid');
-         //echo $openid;
-       // echo $count;
-        $res=$this->sendMse($openid,$count);
-        if($res){
-                echo "ok";
-        }else{
-            echo "no";
-        }
+         echo $openid;
+        echo $count;
+       $access_token=accessToken();
+       $msg=[
+           "touser"=>$openid,
+           "msgtype"=>"text",
+           "text"=>[
+               "content"=>$count
+                ]
+           ];
+       $data=json_encode($msg,JSON_UNESCAPED_UNICODE);
+       $url='https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token='.$access_token;
+       $client=new Client();
+       $response=$client->request('post',$url,[
+           'body'=>$data
+       ]);
+       $response->getBody();
     }
     //添加文件
     public function upload(Request $request,$fieldname){
