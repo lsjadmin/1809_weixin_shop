@@ -13,6 +13,11 @@ Route::group([
     $router->get('/', 'HomeController@index')->name('admin.home');
     $router->resource('goodsInfo', GoodsController::class);
     $router->resource('orderInfo', OrderController::class);
-    $router->resource('userInfo', UserController::class);
-    $router->resource('wxuserInfo', UserwxController::class);
+
+    $router->resource('wxmessage', WxImageController::class);
+    $router->any('/addImage', 'WxImageController@addImage');
+    $router->any('/add', 'WxImageController@add');
+    $router->any('/send', 'WxImageController@send');
+    $router->any('/sendTo', 'WxImageController@sendTo');
+   
 });

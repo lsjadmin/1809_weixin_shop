@@ -52,4 +52,7 @@ Route::any('valid','Wei\WeiController@wxEvent');
 Route::get('success_toke','Wei\WeiController@success_toke');
 Route::get('test','Wei\WeiController@test');
 
+//测试
+Route::get('a','Wei\WeiController@a');
+
 

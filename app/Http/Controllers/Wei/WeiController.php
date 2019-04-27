@@ -24,13 +24,13 @@ class WeiController extends Controller
         $time=date("Y-m-d H:i:s");
         $str=$time . $content ."\n";
         file_put_contents("logs/wx_event.log",$str,FILE_APPEND);
-       // echo 'SUCCESS';
+         // echo 'SUCCESS';
         $data = simplexml_load_string($content);
-       // var_dump($data);
-    //    echo 'ToUserName:'.$data->ToUserName;echo"</br>";//微信号id
-    //    echo 'FromUserName:'.$data->FromUserName;echo"</br>";//用户openid
-    //   echo 'CreateTime:'.$data->CreateTime;echo"</br>";//时间
-    //    echo 'Event:'.$data->Event;echo"</br>";//事件类型
+        // var_dump($data);
+        //echo 'ToUserName:'.$data->ToUserName;echo"</br>";//微信号id
+        //echo 'FromUserName:'.$data->FromUserName;echo"</br>";//用户openid
+        //echo 'CreateTime:'.$data->CreateTime;echo"</br>";//时间
+        //echo 'Event:'.$data->Event;echo"</br>";//事件类型
        //die;
         $MsgType=$data->MsgType;
         $openid=$data->FromUserName;
@@ -38,7 +38,6 @@ class WeiController extends Controller
         $event=$data->Event;
         $MediaId=$data->MediaId;
         $token=accessToken();
-       
         //把文本存到数据库 ,图片，语音存到数据库
         if($MsgType=='text'){
             $m_text=$data->Content;
@@ -93,11 +92,8 @@ class WeiController extends Controller
                     ';
             }
         }
-      
-      
-
     }
-  
+                                
     //获取用户信息
     public function getUserInfo($openid){
        $access_token=accessToken();
@@ -106,6 +102,11 @@ class WeiController extends Controller
         $data=file_get_contents($a);
         $u=json_decode($data,true);
         return $u;
+    }
+    //获取自定义菜单
+    public function a(){
+        $access_token=accessToken();
+        echo $access_token;
     }
     
     
