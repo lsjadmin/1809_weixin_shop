@@ -74,7 +74,7 @@ class WeiController extends Controller
            
             $name="最新商品";
             $desc="最新商品";
-            $url="http://www.baidu.com";
+            $url="https://1809lianshijie.comcto.com/detail/2";
             echo '<xml>
                 <ToUserName><![CDATA['.$openid.']]></ToUserName>
                 <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
@@ -129,7 +129,7 @@ class WeiController extends Controller
       
                 $name="欢迎回来";
                 $desc="欢迎回来";
-                $url="http://www.baidu.com";
+                $url="https://1809lianshijie.comcto.com/detail/2";
                 echo '<xml>
                     <ToUserName><![CDATA['.$openid.']]></ToUserName>
                     <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
