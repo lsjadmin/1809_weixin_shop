@@ -257,7 +257,7 @@ class WxImageController extends Controller
        $arr=json_decode($res,true);
        //echo'<pre>';print_r($arr);echo'</pre>';
     }
-    //标签执行
+    //标签添加视图
     public function tallyAdd(Content $content){
         return $content
         ->body(view('admin.WxImage.tallyAdd'));
@@ -272,16 +272,22 @@ class WxImageController extends Controller
         return $content
         ->body(view('admin.WxImage.tallyList',['arr'=>$arr]));
     }
-    //批量给用户加标签
+    //批量给用户加标签（执行）
     public function make(){
+        $a=request()->input('openid');
+        //echo $a;
+        $openid=explode(',',$a);
+       // echo'<pre>';print_r($openid);echo'</pre>';die;
+        $label=request()->input('label');
+       
         $access_token=accessToken();
         $url='https://api.weixin.qq.com/cgi-bin/tags/members/batchtagging?access_token='.$access_token;
         $data=[
             
             "openid_list" =>[//粉丝列表    
-                "oCeEX1p4LyuDYV16wOIKTyICKyW4",    
+                $openid,    
                 ],   
-                "tagid" =>100 
+                "tagid" =>$label
           
         ];
         $a=json_encode($data,JSON_UNESCAPED_UNICODE);
@@ -292,13 +298,48 @@ class WxImageController extends Controller
         ]);
         $arr=$response->getBody();
         $res=json_decode($arr,true);
-        // dd($res);
+        dd($res);
     }
-    //给用户添加标签
+    //给用户添加标签(展示)
     public function mass(Content $content){
-        $userInfo=DB::table('userwx')->get()->toArray();
-        $user=array_column($userInfo,'openid');
-       // dd($user);
+           
+            //展示出用户
+            $userInfo=DB::table('userwx')->get()->toArray();
+            // $user=array_column($userInfo,'openid');
+            // dd($userInfo);
+            //展示标签
+            $access_token=accessToken();
+            $url='https://api.weixin.qq.com/cgi-bin/tags/get?access_token='.$access_token;
+            $response=json_decode(file_get_contents($url),true);
+            //  echo'<pre>';print_r($response);echo'</pre>';
+            $arr=$response['tags'];
+            return $content
+            ->body(view('admin.WxImage.mass',['arr'=>$arr,'userInfo'=>$userInfo]));
+    }
+    public function Info(){
+        $id=request()->input('id');
+        $text=request()->input('text');
+        $access_token=accessToken();
+        $url='https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token='.$access_token;
+        $a=[
+            "filter"=>[
+                "is_to_all"=>false,
+                "tag_id"=>$id
+             ],
+             "text"=>[
+                "content"=>$text
+             ],
+              "msgtype"=>"text"
+        ];
+        $data=json_encode($a,JSON_UNESCAPED_UNICODE);
+        //echo $data;die;
+        $client=new Client();
+        $response=$client->request('post',$url,[
+            'body'=>$data
+        ]);
+       $res=$response->getBody();
+       $arr=json_decode($res,true);
+       echo'<pre>';print_r($arr);echo'</pre>';
     }
     
 

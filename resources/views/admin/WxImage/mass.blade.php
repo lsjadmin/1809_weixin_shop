@@ -88,28 +88,19 @@
 <body>
 <div class="box-body table-responsive no-padding content">
     <table class="table table-hover">
-        <thead>
-            <tr>
-                <th><input type="checkbox"></th>
-                <th>uid</th>
-                <th>openid</th>
-                <th>用户名:</th>
-                <th>头像</th>
-            </tr>
-
-        </thead>
-        <tbody>
-            @foreach($user as $v)
-            <tr class="openid" openid="{{$v->openid}}">
-                <td><input type="checkbox" class="box" openid="{{$v->openid}}" ></td>
-                <td>{{$v->uid}}</td>
-                <td>{{$v->openid}}</td>
-                <td>{{$v->nickname}}</td>
-                <td><img src="{{$v->headimgurl}}" alt="暂无图片" width="50"></td>
-            </tr>
-            @endforeach
-        </tbody>
-
+        <tr>
+            <td>id</td>
+            <td>openID</td>
+            <td>用户名</td>
+        </tr>
+        @foreach($userInfo as $k=>$v)
+        <tr>
+            <td><input type="checkbox" class="box" openid="{{$v->openid}}"></td>
+            <td>{{$v->user_id}}</td>
+            <td>{{$v->openid}}</td>
+            <td>{{$v->nickname}}</td>
+        </tr>
+        @endforeach
     </table>
     <input type="button" id="sub"  class="btn btn-primary"value="确认">
 </div>
@@ -136,14 +127,15 @@ $(function(){
             }
         })
         openid=openid.substr(0,openid.length-1);
+       // console.log(openid);
         var label=$('#_select').val();
-        // console.log(_select);
+        // console.log(label);
         $.post(
-            '/admin/mass/makeadd',
+            '/admin/make',
             {openid:openid,label:label},
             function(res){
                 layer.msg(res.font,{icon:res.code});
-
+                console.log(res);
             }
         );
     })

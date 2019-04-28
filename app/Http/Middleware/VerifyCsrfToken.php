@@ -23,7 +23,8 @@ class VerifyCsrfToken extends Middleware
         "notify",
         "valid",
         "/admin/addImage",
-        
+        "/admin/make",
         "/admin/sendTo",
+        "/admin/Info",
     ];
 }

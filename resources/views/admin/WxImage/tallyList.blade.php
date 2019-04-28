@@ -90,6 +90,7 @@
     <table class="table table-hover">
         <thead>
             <tr>
+            <th></th>
                 <th>ID</th>
                 <th>名称</th>
                 <th>人数</th>
@@ -98,6 +99,7 @@
         <tbody>
             @foreach($arr as $v)
             <tr >
+                    <td><input type="radio" id="{{$v['id']}}" class="radio"></td>
                 <td>{{$v['id']}}</td>
                 <td>{{$v['name']}}</td>
                 <td>{{$v['count']}}</td>
@@ -105,7 +107,26 @@
             @endforeach
         </tbody>
     </table>
+    <textarea name="" id="" cols="30" rows="10" class="text">
+    
+    </textarea>
 </div>
+    <input type="button" value="发送" class="button">
 </body>
 </html>
+<script>
+    $(document).on("click",".button",function(){
+        var id=$("input[type='radio']:checked").attr('id');
+        var text=$('.text').val();
+       // console.log(text);
+       // console.log(id);
+        $.post(
+            "/admin/Info",
+            {id:id,text:text},
+            function(res){
+                console.log(res);
+            }
+        )
+    })
+</script>
 

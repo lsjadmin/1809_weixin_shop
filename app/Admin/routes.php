@@ -24,4 +24,5 @@ Route::group([
     $router->any('/tallyList', 'WxImageController@tallyList');//标签展示视图
     $router->any('/make', 'WxImageController@make');//给标签批量添加
     $router->any('/mass', 'WxImageController@mass');//给用户添加标签
+    $router->any('/Info', 'WxImageController@Info');
 });
