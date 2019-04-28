@@ -8,6 +8,7 @@ use App\Model\GoodsModel;
 use App\Model\CartModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
+use GuzzleHttp\Client;
 class CartController extends Controller
 {
     //购物车页面
@@ -49,26 +50,38 @@ class CartController extends Controller
             $ss_sort_goods='ss_sort:goods';  //商品排序的建
             $count=Redis::incr($goods_view_goods_id); 
             $sort=Redis::Zadd($ss_sort_goods,$count,$goods_id); //有序集合排序 
-            // dd($sort);
-            // dd($count);
-            // dd($res);
-            //    if($res){
-            //         $res=[
-            //             'count'=>$res->count+1
-            //         ];
-            //         $arr=GoodsModel::where(['g_id'=>$goods_id])->update($res);
-            //         $res=GoodsModel::where(['g_id'=>$goods_id])->first();
-            //         $data=[
-            //             'res'=>$res
-            //         ];
-            //         return view('cart.detail',$data);
-            //    }else{
-            $res=GoodsModel::where(['g_id'=>$goods_id])->first();
+           
+            $resa=GoodsModel::where(['g_id'=>$goods_id])->first();
+            //$ticket=$this->carcode();
+
+            
+            $access_token=accessToken();
+            $url='https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token='.$access_token;
+            $msg=[
+                "expire_seconds"=>604800, 
+                "action_name"=>"QR_SCENE", 
+                "action_info"=>["scene"=>["scene_id"=>$goods_id]]
+            ];
+            $data=json_encode($msg,JSON_UNESCAPED_UNICODE);
+            //echo $data;die;
+            $client=new Client();
+            $response=$client->request('post',$url,[
+                'body'=>$data
+            ]);
+            $res=$response->getBody();
+            $arr=json_decode($res,true);
+             //echo'<pre>';print_r($arr);echo'</pre>';die;
+            $ticket=$arr['ticket'];
+            //echo $ticket;die;
+            $code_url='https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket='.$ticket;
+           
                 $data=[
-                    'res'=>$res,
-                    'count'=>$count
+                    'resa'=>$resa,
+                    'count'=>$count,
+                    'code_url'=>$code_url
                 ];
                 return view('cart.detail',$data);
+              
          //}
           
      }
@@ -126,5 +139,28 @@ class CartController extends Controller
             $res[]=GoodsModel::where(['g_id'=>$k])->first();
         }
         return view('cart.sort',['res'=>$res]);
+    }
+    //获得ticket
+    public function carcode(){
+      
+        $access_token=accessToken();
+        $url='https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token='.$access_token;
+        $msg=[
+            "expire_seconds"=>604800, 
+            "action_name"=>"QR_SCENE", 
+            "action_info"=>["scene"=>["scene_id"=>23]]
+        ];
+        $data=json_encode($msg,JSON_UNESCAPED_UNICODE);
+        //echo $data;die;
+         $client=new Client();
+        $response=$client->request('post',$url,[
+            'body'=>$data
+        ]);
+        $res=$response->getBody();
+        $arr=json_decode($res,true);
+       // echo'<pre>';print_r($arr);echo'</pre>';
+       $ticket=$arr['ticket'];
+       //echo $ticket;die;
+        return $ticket;
     }
 }

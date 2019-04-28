@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Code;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
-
+use App\Model\GoodsModel;
 class CodeController extends Controller
 {
     //
@@ -27,9 +27,13 @@ class CodeController extends Controller
         $arr=json_decode($res,true);
        // echo'<pre>';print_r($arr);echo'</pre>';
        $ticket=$arr['ticket'];
+       $code_url='https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket='.$ticket;
+      // echo $code_url;die;
+     
         return $ticket;
     }
     public function codeAdd(){
-       
+       $res=GoodsModel::where(['g_id'=>2])->first();
+        return view('code.code',['res'=>$res]);
     }
 }

@@ -54,6 +54,7 @@
                 margin-bottom: 30px;
             }
         </style>
+        
     </head>
     <body>
         <div class="flex-center position-ref full-height">
@@ -77,15 +78,19 @@
                 </div>
                 <ul>
                   
-                        <li>商品Id:-{{$res->g_id}}-商品名称：{{$res->goods_name}} -商品价格：{{$res->goods_price}}-点击次数:{{$count}}</li>
+                        <li>商品Id:-{{$resa->g_id}}-商品名称：{{$resa->goods_name}} -商品价格：{{$resa->goods_price}}-点击次数:{{$count}}</li>
                     
                 </ul>
                 <hr>
                
-                <form action="/add/{{$res->g_id}}" method="get">
+                <form action="/add/{{$resa->g_id}}" method="get">
                     <input type="submit" value="加入购物车">
                 </form>
+                <div width="300px" height="300px" border="1">
+                <div id="qrcode"></div>
+             <a href="{{$code_url}}">点击此处生成二维码</a>
             </div>
         </div>
+       
     </body>
 </html>

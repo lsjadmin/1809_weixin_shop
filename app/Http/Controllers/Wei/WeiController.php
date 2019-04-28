@@ -63,6 +63,7 @@ class WeiController extends Controller
             $EventKey=$data->EventKey;
             //echo "$EventKey";die;
             $str=substr($EventKey,8);
+            echo $str;
             $arr=$this->getUserInfo($openid);
             //echo'<pre>';print_r($arr);echo'</pre>';
             $info=[
@@ -72,9 +73,16 @@ class WeiController extends Controller
             ];
             $res=DB::table('wx_user_code')->insert($info);
            
-            $name="最新商品";
-            $desc="最新商品";
-            $url="https://1809lianshijie.comcto.com/detail/2";
+            $where=[
+              'g_id'=>$EventKey
+            ];
+            $res=DB::table('goods')->where($where)->first();
+            //dd($res);
+                $name="最新商品";
+                $desc=$res->goods_name;
+                $g_id=$res->g_id;
+                
+                $url='https://1809lianshijie.comcto.com/detail/'.$g_id;
             echo '<xml>
                 <ToUserName><![CDATA['.$openid.']]></ToUserName>
                 <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
@@ -126,10 +134,19 @@ class WeiController extends Controller
         }
        
         if($event=='SCAN'){
-      
+          $EventKey=$data->EventKey;
+          //echo $EventKey;die;
+            $where=[
+              'g_id'=>$EventKey
+            ];
+            $res=DB::table('goods')->where($where)->first();
+            //dd($res);
                 $name="欢迎回来";
-                $desc="欢迎回来";
-                $url="https://1809lianshijie.comcto.com/detail/2";
+                $desc=$res->goods_name;
+                $g_id=$res->g_id;
+                
+                $url='https://1809lianshijie.comcto.com/detail/'.$g_id;
+               
                 echo '<xml>
                     <ToUserName><![CDATA['.$openid.']]></ToUserName>
                     <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
