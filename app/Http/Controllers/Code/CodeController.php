@@ -29,7 +29,7 @@ class CodeController extends Controller
        $ticket=$arr['ticket'];
         //$ticketa=UrlEncode($ticket);
        $code_url='https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket='.$ticket;
-       //echo $code_url;die;
+       echo $code_url;die;
         
         return $ticket;
     }
