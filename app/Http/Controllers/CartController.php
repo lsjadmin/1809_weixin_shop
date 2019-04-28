@@ -55,30 +55,12 @@ class CartController extends Controller
             //$ticket=$this->carcode();
 
             
-            $access_token=accessToken();
-            $url='https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token='.$access_token;
-            $msg=[
-                "expire_seconds"=>604800, 
-                "action_name"=>"QR_SCENE", 
-                "action_info"=>["scene"=>["scene_id"=>$goods_id]]
-            ];
-            $data=json_encode($msg,JSON_UNESCAPED_UNICODE);
-            //echo $data;die;
-            $client=new Client();
-            $response=$client->request('post',$url,[
-                'body'=>$data
-            ]);
-            $res=$response->getBody();
-            $arr=json_decode($res,true);
-             //echo'<pre>';print_r($arr);echo'</pre>';die;
-            $ticket=$arr['ticket'];
-            //echo $ticket;die;
-            $code_url='https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket='.$ticket;
+            $url='https://1809lianshijie.comcto.com/detail/'.$goods_id;
            
                 $data=[
                     'resa'=>$resa,
                     'count'=>$count,
-                    'code_url'=>$code_url
+                    'url'=>$url
                 ];
                 return view('cart.detail',$data);
               

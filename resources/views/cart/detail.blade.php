@@ -8,6 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        <script src="/js/weixin/qrcode.min.js"></script>
 
         <!-- Styles -->
         <style>
@@ -88,9 +89,19 @@
                 </form>
                 <div width="300px" height="300px" border="1">
                 <div id="qrcode"></div>
-             <a href="{{$code_url}}">点击此处生成二维码</a>
+             
             </div>
         </div>
-       
+        <script>
+        var qrcode = new QRCode('qrcode',{
+            text:'{{$url}}',
+            width:256,
+            height:256,
+            colorDark : '#000000',
+            colorLight : '#ffffff',
+            correctLevel : QRCode.CorrectLevel.H
+        });
+        </script>
+
     </body>
 </html>
