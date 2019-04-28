@@ -54,5 +54,8 @@ Route::get('test','Wei\WeiController@test');
 
 //测试
 Route::get('a','Wei\WeiController@a');
+//二维码
+Route::get('code','Code\CodeController@code');
+Route::get('codeAdd','Code\CodeController@codeAdd');
 
 

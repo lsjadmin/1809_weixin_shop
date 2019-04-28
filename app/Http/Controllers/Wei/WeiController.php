@@ -34,6 +34,7 @@ class WeiController extends Controller
        //die;
         $MsgType=$data->MsgType;
         $openid=$data->FromUserName;
+       // echo $openid;die;
         $wx_id=$data->ToUserName;
         $event=$data->Event;
         $MediaId=$data->MediaId;
@@ -92,6 +93,38 @@ class WeiController extends Controller
                     ';
             }
         }
+        if($event=='SCAN'){
+            $arr=$this->getUserInfo($openid);
+            //echo'<pre>';print_r($arr);echo'</pre>';
+            $info=[
+                'openid'=>$openid,
+                'nickname'=>$arr['nickname'],
+            ];
+            $res=DB::table('wx_user_code')->insert($info);
+            if($res){
+                $name="图文";
+                $desc="我也不知道";
+                $url="http://www.baidu.com";
+                echo '<xml>
+                    <ToUserName><![CDATA['.$openid.']]></ToUserName>
+                    <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
+                    <CreateTime>'.time().'</CreateTime>
+                    <MsgType><![CDATA[news]]></MsgType>
+                    <ArticleCount>1</ArticleCount>
+                    <Articles>
+                      <item>
+                        <Title><![CDATA['.$name.']]></Title>
+                        <Description><![CDATA['.$desc.']]></Description>
+                        <PicUrl><![CDATA['.'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2984185296,2196422696&fm=27&gp=0.jpg'.']]></PicUrl>
+                        <Url><![CDATA['.$url.']]></Url>
+                      </item>
+                    </Articles>
+                  </xml>';
+            }else{
+                echo 'no';
+            }
+        }
+
     }
                                 
     //获取用户信息

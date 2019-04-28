@@ -153,7 +153,11 @@ class WxImageController extends Controller
         ];
         //dd($info);
         $add=DB::table('wx_image')->insert($info);
-        
+        if($add){
+            echo "ok";
+        }else{
+            echo "no";
+        }
         // return $content
         // ->body(view('admin.WxImage.addImage'));
     }
@@ -197,8 +201,8 @@ class WxImageController extends Controller
         $count=request()->input('text');
         $id=request()->input('openid');
         $openid=explode(',',$id);
-        print_r($openid);
-        echo $count;
+        // print_r($openid);
+        // echo $count;
        $access_token=accessToken();
        $msg=[
            "touser"=>$openid,
@@ -215,7 +219,12 @@ class WxImageController extends Controller
        ]);
        $res=$response->getBody();
        $arr=json_decode($res,true);
-       echo'<pre>';print_r($arr);echo'</pre>';
+       if($arr){
+            echo "ok";
+       }else{
+            echo "no";
+       }
+      // echo'<pre>';print_r($arr);echo'</pre>';
     }
     //添加文件
     public function upload(Request $request,$fieldname){
@@ -229,7 +238,68 @@ class WxImageController extends Controller
             return $store_result;
             }
     }
-
+    //标签添加
+    public function tally(){
+        $name=request()->input('name');
+        //echo $name;die;
+        $access_token=accessToken();
+        $url='https://api.weixin.qq.com/cgi-bin/tags/create?access_token='.$access_token;
+        $a=[
+            "tag" =>["name"=>$name ]
+        ];
+        $data=json_encode($a,JSON_UNESCAPED_UNICODE);
+        //echo $data;die;
+        $client=new Client();
+        $response=$client->request('post',$url,[
+            'body'=>$data
+        ]);
+       $res=$response->getBody();
+       $arr=json_decode($res,true);
+       //echo'<pre>';print_r($arr);echo'</pre>';
+    }
+    //标签执行
+    public function tallyAdd(Content $content){
+        return $content
+        ->body(view('admin.WxImage.tallyAdd'));
+    }
+    //标签展示
+    public function tallyList(Content $content){
+        $access_token=accessToken();
+        $url='https://api.weixin.qq.com/cgi-bin/tags/get?access_token='.$access_token;
+        $response=json_decode(file_get_contents($url),true);
+        //  echo'<pre>';print_r($response);echo'</pre>';
+        $arr=$response['tags'];
+        return $content
+        ->body(view('admin.WxImage.tallyList',['arr'=>$arr]));
+    }
+    //批量给用户加标签
+    public function make(){
+        $access_token=accessToken();
+        $url='https://api.weixin.qq.com/cgi-bin/tags/members/batchtagging?access_token='.$access_token;
+        $data=[
+            
+            "openid_list" =>[//粉丝列表    
+                "oCeEX1p4LyuDYV16wOIKTyICKyW4",    
+                ],   
+                "tagid" =>100 
+          
+        ];
+        $a=json_encode($data,JSON_UNESCAPED_UNICODE);
+        // echo $a;
+        $client=new Client();
+        $response=$client->request('post',$url,[
+            'body'=>$a
+        ]);
+        $arr=$response->getBody();
+        $res=json_decode($arr,true);
+        // dd($res);
+    }
+    //给用户添加标签
+    public function mass(Content $content){
+        $userInfo=DB::table('userwx')->get()->toArray();
+        $user=array_column($userInfo,'openid');
+       // dd($user);
+    }
     
 
 }

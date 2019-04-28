@@ -8,7 +8,7 @@ use App\Model\CartModel;
 use App\Model\OrderModel;
 class GoodsController extends Controller
 {
-    //
+    //删除
     public function del(){
        // echo 2;'</hr>';
        $arr=OrderModel::all()->toArray();
@@ -19,4 +19,5 @@ class GoodsController extends Controller
             }
       }
     }
+   
 }
