@@ -57,34 +57,62 @@ class WeiController extends Controller
             }
             //echo $Content;
         }
-        $EventKey=$data->EventKey;
-        $str=substr($EventKey,0,8);
-        if($str=='qrscene_'&&$event=='subscribe'){
-            $whereOpenid=[
-                'openid'=>$openid
-            ];
-            $userName=DB::table('wx_user_code')->where($whereOpenid)->first();
-            if($userName){
-                $name="图文";
-                $desc="欢迎回来";
-                $url="http://www.baidu.com";
-                echo '<xml>
-                    <ToUserName><![CDATA['.$openid.']]></ToUserName>
-                    <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
-                    <CreateTime>'.time().'</CreateTime>
-                    <MsgType><![CDATA[news]]></MsgType>
-                    <ArticleCount>1</ArticleCount>
-                    <Articles>
-                      <item>
-                        <Title><![CDATA['.$name.']]></Title>
-                        <Description><![CDATA['.$desc.']]></Description>
-                        <PicUrl><![CDATA['.'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2984185296,2196422696&fm=27&gp=0.jpg'.']]></PicUrl>
-                        <Url><![CDATA['.$url.']]></Url>
-                      </item>
-                    </Articles>
-                  </xml>';
-            }
-        }else if($event=='SCAN'){
+        
+        if($event=='subscribe'){
+            $name="图文";
+            $desc="最新商品";
+            $url="http://www.baidu.com";
+            echo '<xml>
+                <ToUserName><![CDATA['.$openid.']]></ToUserName>
+                <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
+                <CreateTime>'.time().'</CreateTime>
+                <MsgType><![CDATA[news]]></MsgType>
+                <ArticleCount>1</ArticleCount>
+                <Articles>
+                  <item>
+                    <Title><![CDATA['.$name.']]></Title>
+                    <Description><![CDATA['.$desc.']]></Description>
+                    <PicUrl><![CDATA['.'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2984185296,2196422696&fm=27&gp=0.jpg'.']]></PicUrl>
+                    <Url><![CDATA['.$url.']]></Url>
+                  </item>
+                </Articles>
+              </xml>';
+            // $whereOpenid=[
+            //     'openid'=>$openid
+            // ];
+            // $userName=DB::table('userwx')->where($whereOpenid)->first();
+            // if($userName){
+            //         echo '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName>
+            //         <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
+            //         <CreateTime>'.time().'</CreateTime>
+            //         <MsgType><![CDATA[text]]></MsgType>
+            //        <Content>![CDATA['.'欢迎回来'.$userName->nickname.']]</Content>
+            //         </xml>
+            //         ';
+            // }else{
+            //     $u=$this->getUserInfo($openid);
+            //     $info=[
+            //         'openid'=>$openid,
+            //         'nickname'=>$u['nickname'],
+            //         'subscribe_time'=>$u['subscribe_time']
+            //     ];
+            //     $res=DB::table('userwx')->insert($info);
+            //     if($res){
+            //         echo "ok";
+            //     }else{
+            //         echo "no";
+            //     }
+            //     echo '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName>
+            //         <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
+            //         <CreateTime>'.time().'</CreateTime>
+            //         <MsgType><![CDATA[text]]></MsgType>
+            //        <Content>![CDATA['.'欢迎关注'.$u['nickname'].']]</Content>
+            //         </xml>
+            //         ';
+            // }
+        }
+       
+        if($event=='SCAN'){
             $arr=$this->getUserInfo($openid);
             //echo'<pre>';print_r($arr);echo'</pre>';
             $info=[
@@ -94,7 +122,7 @@ class WeiController extends Controller
             $res=DB::table('wx_user_code')->insert($info);
             if($res){
                 $name="图文";
-                $desc="我也不知道";
+                $desc="欢迎回来";
                 $url="http://www.baidu.com";
                 echo '<xml>
                     <ToUserName><![CDATA['.$openid.']]></ToUserName>
@@ -115,44 +143,6 @@ class WeiController extends Controller
                 echo 'no';
             }
         }
-        if($event=='subscribe'){
-
-            $whereOpenid=[
-                'openid'=>$openid
-            ];
-            $userName=DB::table('userwx')->where($whereOpenid)->first();
-            if($userName){
-                    echo '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName>
-                    <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
-                    <CreateTime>'.time().'</CreateTime>
-                    <MsgType><![CDATA[text]]></MsgType>
-                   <Content>![CDATA['.'欢迎回来'.$userName->nickname.']]</Content>
-                    </xml>
-                    ';
-            }else{
-                $u=$this->getUserInfo($openid);
-                $info=[
-                    'openid'=>$openid,
-                    'nickname'=>$u['nickname'],
-                    'subscribe_time'=>$u['subscribe_time']
-                ];
-                $res=DB::table('userwx')->insert($info);
-                if($res){
-                    echo "ok";
-                }else{
-                    echo "no";
-                }
-                echo '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName>
-                    <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
-                    <CreateTime>'.time().'</CreateTime>
-                    <MsgType><![CDATA[text]]></MsgType>
-                   <Content>![CDATA['.'欢迎关注'.$u['nickname'].']]</Content>
-                    </xml>
-                    ';
-            }
-        }
-       
-     
 
     }
                                 
