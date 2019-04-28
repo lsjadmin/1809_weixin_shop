@@ -39,6 +39,7 @@ class WeiController extends Controller
         $event=$data->Event;
         $MediaId=$data->MediaId;
         $token=accessToken();
+        
         //把文本存到数据库 ,图片，语音存到数据库
         if($MsgType=='text'){
             $m_text=$data->Content;
@@ -59,7 +60,19 @@ class WeiController extends Controller
         }
         
         if($event=='subscribe'){
-            $name="图文";
+            $EventKey=$data->EventKey;
+            //echo "$EventKey";die;
+            $str=substr($EventKey,8);
+            $arr=$this->getUserInfo($openid);
+            //echo'<pre>';print_r($arr);echo'</pre>';
+            $info=[
+                'openid'=>$openid,
+                'nickname'=>$arr['nickname'],
+                'eventkey'=>$str,
+            ];
+            $res=DB::table('wx_user_code')->insert($info);
+           
+            $name="最新商品";
             $desc="最新商品";
             $url="http://www.baidu.com";
             echo '<xml>
@@ -113,15 +126,8 @@ class WeiController extends Controller
         }
        
         if($event=='SCAN'){
-            $arr=$this->getUserInfo($openid);
-            //echo'<pre>';print_r($arr);echo'</pre>';
-            $info=[
-                'openid'=>$openid,
-                'nickname'=>$arr['nickname'],
-            ];
-            $res=DB::table('wx_user_code')->insert($info);
-            if($res){
-                $name="图文";
+      
+                $name="欢迎回来";
                 $desc="欢迎回来";
                 $url="http://www.baidu.com";
                 echo '<xml>
@@ -139,9 +145,7 @@ class WeiController extends Controller
                       </item>
                     </Articles>
                   </xml>';
-            }else{
-                echo 'no';
-            }
+           
         }
 
     }
