@@ -78,9 +78,7 @@
 
                 </div>
                 <ul>
-                  
                         <li>商品Id:-{{$resa->g_id}}-商品名称：{{$resa->goods_name}} -商品价格：{{$resa->goods_price}}-点击次数:{{$count}}</li>
-                    
                 </ul>
                 <hr>
                

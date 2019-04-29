@@ -156,7 +156,60 @@ class WeiController extends Controller
                   </xml>';
            
         }
-
+        $count=$data->Content;
+        //echo $count;die;
+            $goods=DB::table('goods')->where('goods_name','like',"%$count%")->first();
+            if($goods==''){
+                   // echo "aa";
+                   $name=$goods->goods_name;
+                   // echo "ok";
+                   $desc="商品";
+                   $goods_id=$goods->g_id;
+                   $url='https://1809lianshijie.comcto.com/detail/4';
+                 // echo $url;die;
+                   echo '<xml>
+                       <ToUserName><![CDATA['.$openid.']]></ToUserName>
+                       <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
+                       <CreateTime>'.time().'</CreateTime>
+                       <MsgType><![CDATA[news]]></MsgType>
+                       <ArticleCount>1</ArticleCount>
+                       <Articles>
+                         <item>
+                           <Title><![CDATA['.$name.']]></Title>
+                           <Description><![CDATA['.$desc.']]></Description>
+                           <PicUrl><![CDATA['.'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2984185296,2196422696&fm=27&gp=0.jpg'.']]></PicUrl>
+                           <Url><![CDATA['.$url.']]></Url>
+                         </item>
+                       </Articles>
+                     </xml>';
+            }else{
+                $name=$goods->goods_name;
+                // echo "ok";
+                $desc="商品";
+                $goods_id=$goods->g_id;
+                $url='https://1809lianshijie.comcto.com/detail/'.$goods_id;
+              // echo $url;die;
+                echo '<xml>
+                    <ToUserName><![CDATA['.$openid.']]></ToUserName>
+                    <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
+                    <CreateTime>'.time().'</CreateTime>
+                    <MsgType><![CDATA[news]]></MsgType>
+                    <ArticleCount>1</ArticleCount>
+                    <Articles>
+                      <item>
+                        <Title><![CDATA['.$name.']]></Title>
+                        <Description><![CDATA['.$desc.']]></Description>
+                        <PicUrl><![CDATA['.'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2984185296,2196422696&fm=27&gp=0.jpg'.']]></PicUrl>
+                        <Url><![CDATA['.$url.']]></Url>
+                      </item>
+                    </Articles>
+                  </xml>';
+            }
+          
+           
+            
+      
+       
     }
                                 
     //获取用户信息
