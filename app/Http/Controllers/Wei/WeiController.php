@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Uri;
 use Illuminate\Support\Str;
+use App\Model\GoodsModel;
 use Illuminate\Support\Facades\Storage;
 class WeiController extends Controller
 {
@@ -156,16 +157,19 @@ class WeiController extends Controller
                   </xml>';
            
         }
+        //用户输入内容查询数据库
         $count=$data->Content;
         //echo $count;die;
             $goods=DB::table('goods')->where('goods_name','like',"%$count%")->first();
             if($goods==''){
                    // echo "aa";
-                   $name="oppo";
+                   $res=GoodsModel::inRandomOrder()->first();
+                  // echo'<pre>';print_r($res);echo"</pre>";die;
+                  $name=$res['goods_name'];
+                    $g_id=$res['g_id'];
                    // echo "ok";
                    $desc="商品";
-                 
-                   $url='https://1809lianshijie.comcto.com/detail/2';
+                   $url='https://1809lianshijie.comcto.com/detail/'.$g_id;
                  // echo $url;die;
                    echo '<xml>
                        <ToUserName><![CDATA['.$openid.']]></ToUserName>
@@ -206,11 +210,7 @@ class WeiController extends Controller
                     </Articles>
                   </xml>';
             }
-          
-           
-            
-      
-       
+
     }
                                 
     //获取用户信息
