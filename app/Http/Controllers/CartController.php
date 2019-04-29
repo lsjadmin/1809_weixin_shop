@@ -62,7 +62,8 @@ class CartController extends Controller
                     'resa'=>$resa,
                     'count'=>$count,
                     'url'=>$url,
-                    'jsconfig'=>$this->Jssdktest()
+                    'jsconfig'=>$this->Jssdktest(),
+                    'goods_id'=>$goods_id
                 ];
                 // $a=$this->Jssdktest();
                 // dd($a);die;
