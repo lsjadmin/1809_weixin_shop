@@ -222,9 +222,9 @@ class WeiController extends Controller
         $u=json_decode($data,true);
         return $u;
     }
-    //获取自定义菜单
+    //获取自定义菜单(最新福利 跳转到网络授权)
     public function createMenu(){
-        $access_token=accessToken();
+      $access_token=accessToken();
       //  echo $access_token;
       $url='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='. $access_token;
       $post_arr=[

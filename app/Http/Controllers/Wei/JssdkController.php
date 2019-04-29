@@ -46,6 +46,7 @@ class JssdkController extends Controller
         $file_name=time().mt_rand(11111,99999).'.png';
         file_put_contents("/wwwroot/1809_weixin_shop/public/wx_image/$file_name",$voice_str,FILE_APPEND);
     }
+    //网页授权
     public function scope(){
        // echo'<pre>';print_r($_GET);echo'</pre>';die;
         $code=$_GET['code'];

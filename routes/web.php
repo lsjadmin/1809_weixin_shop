@@ -31,7 +31,6 @@ Route::get('/order/list', 'Order\OrderController@list');
 Route::get('/order/status', 'Order\OrderController@status');
 //支付
 
-
 //微信支付
 Route::get('text','Wei\WeiPayController@text');
 Route::post('notify','Wei\WeiPayController@notify');
@@ -44,21 +43,17 @@ Route::get('getimg','Wei\JssdkController@getimg');
 Route::get('scope','Wei\JssdkController@scope'); //
 //定时任务
 Route::get('del','Goods\GoodsController@del');
-
-
-
-
 //微信首次接入
 Route::get('valid','Wei\WeiController@valid');
 Route::any('valid','Wei\WeiController@wxEvent');
 Route::get('success_toke','Wei\WeiController@success_toke');
 Route::get('test','Wei\WeiController@test');
 Route::get('createMenu','Wei\WeiController@createMenu');
-
 //测试
 Route::get('a','Wei\WeiController@a');
 //二维码
 Route::get('code','Code\CodeController@code');
 Route::get('codeAdd','Code\CodeController@codeAdd');
+//
 
 
