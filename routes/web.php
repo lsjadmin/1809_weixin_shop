@@ -49,6 +49,7 @@ Route::any('valid','Wei\WeiController@wxEvent');
 Route::get('success_toke','Wei\WeiController@success_toke');
 Route::get('test','Wei\WeiController@test');
 Route::get('createMenu','Wei\WeiController@createMenu');
+Route::get('scopea','Wei\WeiController@scopea');
 //测试
 Route::get('a','Wei\WeiController@a');
 //二维码

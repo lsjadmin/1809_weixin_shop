@@ -225,16 +225,21 @@ class WeiController extends Controller
     //获取自定义菜单(最新福利 跳转到网络授权)
     public function createMenu(){
       $access_token=accessToken();
-      //  echo $access_token;
+      // echo $access_token;die;
       $url='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='. $access_token;
       $post_arr=[
         "button"=>[
-           [  
-              "type"=>"view",
-              "name"=>"最新福利",
-              "url"=>"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxba713404af65cc0c&redirect_uri=http://1809lianshijie.comcto.com/scope&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
+             [  
+                "type"=>"view",
+                "name"=>"最新福利",
+                "url"=>"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxba713404af65cc0c&redirect_uri=http://1809lianshijie.comcto.com/scope&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
+              ],
+              [  
+                "type"=>"view",
+                "name"=>"点击签到",
+                "url"=>"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxba713404af65cc0c&redirect_uri=http://1809lianshijie.comcto.com/scopea&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
+              ],
             ],
-           ]
         ];
         $json_str=json_encode($post_arr,JSON_UNESCAPED_UNICODE);
         //echo $json_str;
@@ -247,6 +252,35 @@ class WeiController extends Controller
         dd($res);
     }
 
+    public function scopea(){
+      // echo'<pre>';print_r($_GET);echo'</pre>';die;
+       $code=$_GET['code'];
+       //通过code换取网页授权access_token
+       $url='https://api.weixin.qq.com/sns/oauth2/access_token?appid='.env('WX_APPID').'&secret='.env('WX_APPSECRET').'&code='.$code.'&grant_type=authorization_code';
+       $response=json_decode(file_get_contents($url),true);
+       //echo'<pre>';print_r($response);echo'</pre>'; 
+       $access_token=$response['access_token'];
+       $openid=$response['openid'];
+       //拉取用户信息
+       $urla='https://api.weixin.qq.com/sns/userinfo?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
+       $res=json_decode(file_get_contents($urla),true);
+       //echo'<pre>';print_r($res);echo'</pre>';die;
+      
+       $message=MessageModel::where(['openid'=>$res['openid']])->first();
+           if($message){
+               echo "欢迎您".$res['nickname'];
+           }else{
+               $info=[
+                   'openid'=>$res['openid'],
+                   'nickname'=>$res['nickname'],
+                   'city'=>$res['city'],
+                   'province'=>$res['province'],
+                   'country'=>$res['country'],
+               ];
+               $arr=MessageModel::insert($info);
+           }
+           
+   }
     
     
 }
