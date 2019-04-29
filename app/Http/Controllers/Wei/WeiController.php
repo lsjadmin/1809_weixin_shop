@@ -164,7 +164,7 @@ class WeiController extends Controller
                    $name="oppo";
                    // echo "ok";
                    $desc="商品";
-                   $goods_id=$goods->g_id;
+                 
                    $url='https://1809lianshijie.comcto.com/detail/2';
                  // echo $url;die;
                    echo '<xml>
