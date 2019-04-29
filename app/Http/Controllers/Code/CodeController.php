@@ -37,4 +37,5 @@ class CodeController extends Controller
        $res=GoodsModel::where(['g_id'=>2])->first();
         return view('code.code',['res'=>$res]);
     }
+   
 }

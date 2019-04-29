@@ -163,7 +163,7 @@ class WeiController extends Controller
             $goods=DB::table('goods')->where('goods_name','like',"%$count%")->first();
             if($goods==''){
                    // echo "aa";
-                   $res=GoodsModel::inRandomOrder()->first();
+                   $res=GoodsModel::inRandomOrder()->first();//随机查询数据库一条
                   // echo'<pre>';print_r($res);echo"</pre>";die;
                   $name=$res['goods_name'];
                     $g_id=$res['g_id'];
