@@ -266,7 +266,6 @@ class WeiController extends Controller
        $urla='https://api.weixin.qq.com/sns/userinfo?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
        $res=json_decode(file_get_contents($urla),true);
        //echo'<pre>';print_r($res);echo'</pre>';die;
-      
        $message=MessageModel::where(['openid'=>$res['openid']])->first();
            if($message){
                echo "欢迎您".$res['nickname'];
@@ -279,12 +278,12 @@ class WeiController extends Controller
                    'country'=>$res['country'],
                ];
                $arr=MessageModel::insert($info);
-               if($arr){
-                echo "ok";
-               }else{
-                echo "no";
-               }
            }
+           echo "签到成功".$res['nickname'];
+           $key='wx_sign'.$res['openid'];
+           Redis::LPush($key,date('Y:m:d H:i:s'));
+           $recode=Redis::LRange($key,0,-1);
+           echo'<pre>';print_r($recode);echo'</pre>';
            
    }
     
