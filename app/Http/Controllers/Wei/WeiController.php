@@ -161,11 +161,11 @@ class WeiController extends Controller
             $goods=DB::table('goods')->where('goods_name','like',"%$count%")->first();
             if($goods==''){
                    // echo "aa";
-                   $name=$goods->goods_name;
+                   $name="oppo";
                    // echo "ok";
                    $desc="商品";
                    $goods_id=$goods->g_id;
-                   $url='https://1809lianshijie.comcto.com/detail/4';
+                   $url='https://1809lianshijie.comcto.com/detail/2';
                  // echo $url;die;
                    echo '<xml>
                        <ToUserName><![CDATA['.$openid.']]></ToUserName>
@@ -187,6 +187,7 @@ class WeiController extends Controller
                 // echo "ok";
                 $desc="商品";
                 $goods_id=$goods->g_id;
+                $img=$goods->img;
                 $url='https://1809lianshijie.comcto.com/detail/'.$goods_id;
               // echo $url;die;
                 echo '<xml>
@@ -199,7 +200,7 @@ class WeiController extends Controller
                       <item>
                         <Title><![CDATA['.$name.']]></Title>
                         <Description><![CDATA['.$desc.']]></Description>
-                        <PicUrl><![CDATA['.'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2984185296,2196422696&fm=27&gp=0.jpg'.']]></PicUrl>
+                        <PicUrl><![CDATA['.$img.']]></PicUrl>
                         <Url><![CDATA['.$url.']]></Url>
                       </item>
                     </Articles>
