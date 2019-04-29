@@ -223,10 +223,30 @@ class WeiController extends Controller
         return $u;
     }
     //获取自定义菜单
-    public function a(){
+    public function createMenu(){
         $access_token=accessToken();
-        echo $access_token;
+      //  echo $access_token;
+      $url='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='. $access_token;
+      $post_arr=[
+        "button"=>[
+           [  
+              "type"=>"view",
+              "name"=>"最新福利",
+              "url"=>"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxba713404af65cc0c&redirect_uri=http://1809lianshijie.comcto.com/scope&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
+            ],
+           ]
+        ];
+        $json_str=json_encode($post_arr,JSON_UNESCAPED_UNICODE);
+        //echo $json_str;
+        $client = new Client;
+        $response=$client->request('POST',$url,[
+             'body'=>$json_str
+        ]);
+        $arr=$response->getBody();
+        $res=json_decode($arr,true);
+        dd($res);
     }
+
     
     
 }

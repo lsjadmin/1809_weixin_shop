@@ -37,6 +37,7 @@ Route::get('text','Wei\WeiPayController@text');
 Route::post('notify','Wei\WeiPayController@notify');
 Route::get('success','Wei\WeiPayController@success');
 
+
 //jssdk
 Route::get('jssdk','Wei\JssdkController@Jssdktest');
 Route::get('getimg','Wei\JssdkController@getimg');
@@ -52,6 +53,7 @@ Route::get('valid','Wei\WeiController@valid');
 Route::any('valid','Wei\WeiController@wxEvent');
 Route::get('success_toke','Wei\WeiController@success_toke');
 Route::get('test','Wei\WeiController@test');
+Route::get('createMenu','Wei\WeiController@createMenu');
 
 //测试
 Route::get('a','Wei\WeiController@a');

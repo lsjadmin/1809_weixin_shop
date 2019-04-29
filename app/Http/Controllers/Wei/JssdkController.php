@@ -64,6 +64,8 @@ class JssdkController extends Controller
         $name=MessageModel::where(['openid'=>$res['openid']])->first();
             if($name){
                 echo "欢迎回来".$res['nickname'];
+                header('Refresh:3;url=/detail/2');
+                die("请选择商品,将在3秒后跳转首页");
             }else{
                
                 $info=[
@@ -76,6 +78,8 @@ class JssdkController extends Controller
                 $arr=MessageModel::insert($info);
                 if($arr){
                     echo "欢迎".$res['nickname'];
+                    header('Refresh:3;url=/detail/2');
+                    die("请选择商品,将在3秒后跳转首页");
                 }else{
                     echo "授权失败";
                 }

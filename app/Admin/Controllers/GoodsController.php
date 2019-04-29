@@ -87,7 +87,7 @@ class GoodsController extends Controller
         $grid->is_del('是否展示');
         $grid->num('商品库存');
         $grid->count('浏览记录');
-
+        $grid->image('图片')->image();
         return $grid;
     }
 
@@ -100,14 +100,12 @@ class GoodsController extends Controller
     protected function detail($id)
     {
         $show = new Show(GoodsModel::findOrFail($id));
-
         $show->g_id('G id');
         $show->goods_name('Goods name');
         $show->goods_price('Goods price');
         $show->is_del('Is del');
         $show->num('Num');
         $show->count('Count');
-
         return $show;
     }
 
@@ -119,14 +117,13 @@ class GoodsController extends Controller
     protected function form()
     {
         $form = new Form(new GoodsModel);
-
         $form->number('g_id', 'G id');
         $form->text('goods_name', 'Goods name');
         $form->number('goods_price', 'Goods price');
         $form->switch('is_del', 'Is del');
         $form->number('num', 'Num')->default(100);
         $form->number('count', 'Count')->default(1);
-
+        $form->file('image', 'image'); 
         return $form;
     }
 }
