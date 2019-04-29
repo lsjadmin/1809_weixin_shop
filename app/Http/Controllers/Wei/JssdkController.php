@@ -65,7 +65,7 @@ class JssdkController extends Controller
             if($name){
                 echo "欢迎回来".$res['nickname'];
                 header('Refresh:3;url=/detail/2');
-                die("请选择商品,将在3秒后跳转首页");
+                die("请选择商品,将在3秒后跳转商品详情");
             }else{
                
                 $info=[
@@ -79,7 +79,7 @@ class JssdkController extends Controller
                 if($arr){
                     echo "欢迎".$res['nickname'];
                     header('Refresh:3;url=/detail/2');
-                    die("请选择商品,将在3秒后跳转首页");
+                    die("请选择商品,将在3秒后跳转商品详情");
                 }else{
                     echo "授权失败";
                 }
