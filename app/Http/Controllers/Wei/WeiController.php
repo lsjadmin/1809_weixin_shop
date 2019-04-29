@@ -12,6 +12,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Uri;
 use Illuminate\Support\Str;
 use App\Model\GoodsModel;
+use App\Model\MessageModel;
 use Illuminate\Support\Facades\Storage;
 class WeiController extends Controller
 {
