@@ -50,6 +50,7 @@ Route::get('success_toke','Wei\WeiController@success_toke');
 Route::get('test','Wei\WeiController@test');
 Route::get('createMenu','Wei\WeiController@createMenu');
 Route::get('scopea','Wei\WeiController@scopea');
+Route::get('aa','Wei\WeiController@aa');
 //测试
 Route::get('a','Wei\WeiController@a');
 //二维码

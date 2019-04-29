@@ -233,7 +233,7 @@ class WeiController extends Controller
              [  
                 "type"=>"view",
                 "name"=>"最新福利",
-                "url"=>"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxba713404af65cc0c&redirect_uri=http://1809lianshijie.comcto.com/scope&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
+                "url"=>"https://1809lianshijie.comcto.com/aa"
               ],
               [  
                 "type"=>"view",
@@ -286,6 +286,13 @@ class WeiController extends Controller
            echo'<pre>';print_r($recode);echo'</pre>';
            
    }
+   public function aa(){
+     $a=urlencode('http://1809lianshijie.comcto.com/scope');
+     //echo $a;die;
+      $url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxba713404af65cc0c&redirect_uri=$a&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+      //echo $url;
+      header("Location:".$url);
+    }
     
     
 }
