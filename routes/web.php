@@ -40,7 +40,14 @@ Route::get('success','Wei\WeiPayController@success');
 //jssdk
 Route::get('jssdk','Wei\JssdkController@Jssdktest');
 Route::get('getimg','Wei\JssdkController@getimg');
-Route::get('scope','Wei\JssdkController@scope'); //
+Route::get('scope','Wei\JssdkController@scope'); 
+Route::get('tallyAdd','Wei\JssdkController@tallyAdd');//添加标签视图
+Route::get('tally','Wei\JssdkController@tally');//标签接口
+Route::get('tallylist','Wei\JssdkController@tallylist');//标签展示
+Route::get('mass','Wei\JssdkController@mass');//把用户 标签 在视图展示出来(视图)
+Route::any('make','Wei\JssdkController@make');//给用户添加标签（执行  接口）
+Route::any('info','Wei\JssdkController@info');//标签群发接口
+Route::any('aa','Wei\JssdkController@aa');
 //定时任务
 Route::get('del','Goods\GoodsController@del');
 //微信首次接入
@@ -50,12 +57,13 @@ Route::get('success_toke','Wei\WeiController@success_toke');
 Route::get('test','Wei\WeiController@test');
 Route::get('createMenu','Wei\WeiController@createMenu');
 Route::get('scopea','Wei\WeiController@scopea');
-Route::get('aa','Wei\WeiController@aa');
+Route::get('aa','Wei\WeiController@aa');//最新福利授权的代码
 //测试
 Route::get('a','Wei\WeiController@a');
 //二维码
 Route::get('code','Code\CodeController@code');
 Route::get('codeAdd','Code\CodeController@codeAdd');
-//
+//标签
+Route::get('lable','Lable\LableController@lable');
 
 

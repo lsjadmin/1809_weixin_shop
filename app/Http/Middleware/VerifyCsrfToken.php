@@ -26,5 +26,7 @@ class VerifyCsrfToken extends Middleware
         "/admin/make",
         "/admin/sendTo",
         "/admin/Info",
+        "/make",
+        "/info",
     ];
 }

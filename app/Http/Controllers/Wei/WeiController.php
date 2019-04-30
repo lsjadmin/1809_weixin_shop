@@ -286,6 +286,7 @@ class WeiController extends Controller
            echo'<pre>';print_r($recode);echo'</pre>';
            
    }
+   //菜单调到这（最新福利）
    public function aa(){
      $a=urlencode('http://1809lianshijie.comcto.com/scope');
      //echo $a;die;
